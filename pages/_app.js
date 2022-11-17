@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }) {
       <header>
         <Navbar />
       </header>
-      <div className="row">
+      <div className="row m-0">
         {showDrawer() ? <Drawer /> : ""}
         <div className={showDrawer() ? "col-md-10 bg-light mt-10" : "col-md-12 bg-ligh"}>
           <Component {...pageProps} />

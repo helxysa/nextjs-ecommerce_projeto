@@ -15,11 +15,15 @@ import ItemTable from "../../components/ItemTable";
 // import ItemTable from "../../components/ItemTable";
 
 export default function Categorias() {
-  const [data, setData] = useState([
-    { name: "Categoria X", createdAt: "xx/xx/xxxx", id: 1 },
-    { name: "Categoria Y", createdAt: "xx/xx/xxxx", id: 2 },
-    { name: "Categoria Z", createdAt: "xx/xx/xxxx", id: 3 },
-  ]);
+  
+  const data = []
+  for (let i = 0; i < 10; i++){
+    data.push({ name: `Categoria ${i+1}`, createdAt: "xx/xx/xxxx", id: i,
+
+    })
+  }
+
+
 
   const header = ["NOME"];
 
@@ -29,7 +33,7 @@ export default function Categorias() {
         <h2 className="text-center" style={{ fontSize: "29px" }}>
           Categorias
         </h2>
-        <Row classname="pt-2" style={{ justifyContent: "left" }}>
+        <Row className="pt-2" style={{ justifyContent: "left" }}>
           <Col md={10}>
             <InputGroup>
               <InputGroup.Text>
@@ -44,7 +48,7 @@ export default function Categorias() {
             </Link>
           </Col>
         </Row>
-        <ItemTable data={data} header={header} />
+        <ItemTable data={data} header={header} detailLink="categorias"/>
       </Card>
     </>
   );
