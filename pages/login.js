@@ -1,15 +1,38 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import  {useState} from "react"
+import authServices from "../services/auth.services";
+import  {useAuthContext} from "../context/auth.context"
 
 export default function Login() {
   const router = useRouter();
-  function handleLogin(e) {
-    e.preventDefault();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] =  useState("");
+  const [IsAuthenticated, setIsAuthenticated]
+      = useAuthContext();
 
 
-    router.push('/categorias')
+
+
+async function handleLogin(e) {
+  e.preventDefault();
+
+
+
+  try {
+    await authServices.login({
+      email,
+      password
+    });
+    setIsAuthenticated(true)/
+    router.push("/categorias");
+
+ } catch(error) {
+    alert("Falha ao autenticar tente novamente")
   }
+}
+
 
   return (
     <>
@@ -24,6 +47,8 @@ export default function Login() {
                 type="email"
                 placeholder="Insira seu email!"
                 required
+                value ={email}
+                onChange= {(e) => setEmail(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="m-2">
@@ -33,6 +58,8 @@ export default function Login() {
                 placeholder="Insira sua senha!"
                 required
                 minLength={8}
+                value = {password}
+                onChange = {(e) => setPassword(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="m-4 text-center">

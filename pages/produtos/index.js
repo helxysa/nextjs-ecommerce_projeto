@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -12,20 +12,18 @@ import {
 } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import ItemTable from "../../components/ItemTable";
+import produtoServices from "../../services/produto.services";
+import useAuth from "../../hooks/useAuth";
 // import ItemTable from "../../components/ItemTable";
 
 export default function Produtos() {
-  const data = [];
-  for (let i = 0; i < 10; i++) {
-    data.push({
-      image: "image",
-      nome: `Nome${i + 1}`,
-      categoria: `Categoria ${i + 1}`,
-      preco: `RS ${i}.99`,
-      createdAt: "xx/xx/xxxx",
-      id: i,
-    });
-  }
+  useAuth();
+  
+  const[data, setData] = useState([])
+  
+  useEffect(()=>{
+    produtoServices.getProduto().then((r)=> setData(r));
+  }, [])
 
 
   const header = ["FOTO", "NOME", "CATEGORIA", "PRECO", "CRIADO EM", "AÇÕES"];
